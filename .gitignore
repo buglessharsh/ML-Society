@@ -1,0 +1,21 @@
+# Database
+data/*.db
+data/*.db-journal
+
+# PHP
+*.log
+*.cache
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.bak
