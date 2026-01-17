@@ -1820,7 +1820,7 @@
         }
 
         .phase-icon {
-            font-size: 3rem;
+            font-size: 2rem;
         }
 
         .phase-title {
@@ -1850,120 +1850,6 @@
             font-weight: bold;
         }
 
-        .lifecycle-section {
-            padding: 100px 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            background: var(--bg-charcoal);
-        }
-
-        .lifecycle-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .lifecycle-step {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(176, 38, 255, 0.2);
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .lifecycle-step::after {
-            content: '→';
-            position: absolute;
-            right: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--neon-cyan);
-            font-size: 2rem;
-        }
-
-        .lifecycle-step:last-child::after {
-            display: none;
-        }
-
-        .lifecycle-step:hover {
-            transform: translateY(-5px);
-            border-color: var(--neon-purple);
-            box-shadow: 0 10px 30px rgba(176, 38, 255, 0.3);
-        }
-
-        .lifecycle-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .lifecycle-title {
-            color: var(--neon-purple);
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-
-        .lifecycle-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .tools-section {
-            padding: 100px 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            background: var(--bg-dark);
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .tools-category {
-            background: var(--bg-card);
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 246, 255, 0.2);
-        }
-
-        .tools-category h3 {
-            color: var(--neon-cyan);
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .tools-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .tool-item {
-            background: var(--bg-charcoal);
-            padding: 1rem;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 102, 255, 0.2);
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .tool-item:hover {
-            transform: translateX(5px);
-            border-color: var(--neon-blue);
-            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.3);
-        }
-
-        .tool-icon {
-            font-size: 1.5rem;
-        }
 
         .tracks-section {
             padding: 100px 2rem;
@@ -3468,141 +3354,6 @@
             </div>
         </section>
 
-        <!-- Project Lifecycle Section -->
-        <section class="lifecycle-section" id="lifecycle">
-            <div class="container">
-                <h2 class="section-title">Project Lifecycle</h2>
-                <p style="text-align: center; color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-                    How we execute ML projects in our community.
-                </p>
-                <div class="lifecycle-steps">
-                    <div class="lifecycle-step">
-                        <div class="lifecycle-icon">📋</div>
-                        <div class="lifecycle-title">Problem Statement</div>
-                        <div class="lifecycle-description">Define the problem clearly, identify objectives, and set success metrics. Understand the business context and requirements.</div>
-                    </div>
-                    <div class="lifecycle-step">
-                        <div class="lifecycle-icon">📊</div>
-                        <div class="lifecycle-title">Dataset Analysis</div>
-                        <div class="lifecycle-description">Explore and analyze datasets. Handle missing values, detect outliers, and perform exploratory data analysis (EDA).</div>
-                    </div>
-                    <div class="lifecycle-step">
-                        <div class="lifecycle-icon">🏗️</div>
-                        <div class="lifecycle-title">Baseline Model</div>
-                        <div class="lifecycle-description">Build a simple baseline model to establish performance benchmarks. Use this as a starting point for improvements.</div>
-                    </div>
-                    <div class="lifecycle-step">
-                        <div class="lifecycle-icon">🔄</div>
-                        <div class="lifecycle-title">Iteration & Improvement</div>
-                        <div class="lifecycle-description">Iteratively improve the model through feature engineering, hyperparameter tuning, and algorithm selection. Get feedback from the community.</div>
-                    </div>
-                    <div class="lifecycle-step">
-                        <div class="lifecycle-icon">✅</div>
-                        <div class="lifecycle-title">Evaluation</div>
-                        <div class="lifecycle-description">Thoroughly evaluate the model using appropriate metrics. Validate performance on test sets and cross-validation.</div>
-                    </div>
-                    <div class="lifecycle-step">
-                        <div class="lifecycle-icon">🎉</div>
-                        <div class="lifecycle-title">Final Showcase</div>
-                        <div class="lifecycle-description">Document the project, create presentations, and showcase your work to the community. Get featured in our project gallery.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tools & Datasets Section -->
-        <section class="tools-section" id="tools">
-            <div class="container">
-                <h2 class="section-title">Tools & Datasets</h2>
-                <p style="text-align: center; color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-                    Essential tools and datasets we use in our ML projects.
-                </p>
-                <div class="tools-grid">
-                    <div class="tools-category">
-                        <h3>🛠️ Development Tools</h3>
-                        <div class="tools-list">
-                            <div class="tool-item">
-                                <span class="tool-icon">🐍</span>
-                                <span>Python</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">📓</span>
-                                <span>Jupyter</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">🔧</span>
-                                <span>scikit-learn</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">🧠</span>
-                                <span>TensorFlow</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">🔥</span>
-                                <span>PyTorch</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">📦</span>
-                                <span>Git/GitHub</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">📊</span>
-                                <span>Pandas</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">🔢</span>
-                                <span>NumPy</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">📈</span>
-                                <span>Matplotlib</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">🌊</span>
-                                <span>Seaborn</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tools-category">
-                        <h3>📂 Dataset Sources</h3>
-                        <div class="tools-list">
-                            <div class="tool-item">
-                                <span class="tool-icon">🏆</span>
-                                <span>Kaggle</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">🌐</span>
-                                <span>UCI ML Repository</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">📚</span>
-                                <span>Open Datasets</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">👥</span>
-                                <span>Community-Curated</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">🔬</span>
-                                <span>Research Datasets</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">📊</span>
-                                <span>Public APIs</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">🎯</span>
-                                <span>Competition Datasets</span>
-                            </div>
-                            <div class="tool-item">
-                                <span class="tool-icon">💾</span>
-                                <span>Custom Datasets</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Skill Tracks Section -->
         <section class="tracks-section" id="tracks">
@@ -3725,52 +3476,10 @@
                     </div>
                     <div class="faq-item">
                         <div class="faq-question">
-                            <span>How do I get started with the community?</span>
-                            <span class="faq-toggle">▼</span>
-                        </div>
-                        <div class="faq-answer">Getting started is simple! First, create your account and complete your profile. Then, introduce yourself in our welcome forum—tell us about your background and goals. Next, choose a skill track (Beginner, Builder, Research, or Career) that matches your objectives. Start with our Foundations phase, explore resources, join study groups, and don't hesitate to ask questions. Our mentors and active community members are always ready to help you begin your ML journey.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>What programming languages do I need to know?</span>
-                            <span class="faq-toggle">▼</span>
-                        </div>
-                        <div class="faq-answer">Python is the primary language we use, and it's where you'll start. Don't worry if you're new to Python—we cover Python fundamentals in our Foundations phase. Basic programming knowledge is helpful but not required. If you've never programmed before, our Beginner Track includes comprehensive Python tutorials. Some members also use R, but Python is recommended for the widest range of resources and community support.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
                             <span>Can I get help with my ML projects?</span>
                             <span class="faq-toggle">▼</span>
                         </div>
                         <div class="faq-answer">Absolutely! Our community is built around collaboration and support. You can get help through multiple channels: post questions in our forums, request code reviews, join project collaboration groups, participate in office hours with mentors, or work with peers in study groups. Our experienced members regularly help with debugging, optimization, architecture decisions, and best practices. Don't hesitate to ask—helping others is part of our community culture.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>What resources and tools are provided?</span>
-                            <span class="faq-toggle">▼</span>
-                        </div>
-                        <div class="faq-answer">We provide extensive resources including video tutorials, written guides, curated learning paths, project templates, dataset recommendations, code examples, research paper summaries, and tool tutorials. We use popular tools like Python, Jupyter Notebooks, scikit-learn, TensorFlow, PyTorch, and Git/GitHub. Access to cloud computing resources for training models may require your own accounts, but we provide guides for setting up free-tier options on platforms like Google Colab, Kaggle, and AWS.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>How can I contribute to the community?</span>
-                            <span class="faq-toggle">▼</span>
-                        </div>
-                        <div class="faq-answer">There are many ways to contribute! You can mentor beginners, write blog posts or tutorials, lead study groups, maintain community projects, answer questions in forums, organize events, create educational content, review code contributions, or help moderate discussions. Contributing is not required but highly appreciated. Contributors gain recognition, build leadership skills, and strengthen their portfolios while helping others learn.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>Are there opportunities for networking and career growth?</span>
-                            <span class="faq-toggle">▼</span>
-                        </div>
-                        <div class="faq-answer">Yes! Our community offers excellent networking opportunities. We organize virtual meetups, hackathons, guest speaker sessions, and career panels where you can connect with industry professionals. Our job board features ML opportunities, our mentorship program connects you with experienced practitioners, and our Career Track provides interview preparation and portfolio building resources. Many members have landed jobs, internships, and freelance opportunities through community connections.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>What if I fall behind or can't keep up?</span>
-                            <span class="faq-toggle">▼</span>
-                        </div>
-                        <div class="faq-answer">Don't worry! Everyone learns at their own pace, and that's perfectly okay. Our community is understanding and supportive. You can always pause, catch up later, or adjust your learning pace. All resources remain available indefinitely, so you can revisit materials anytime. Take breaks when needed, and remember—learning ML is a marathon, not a sprint. Our community is here to support you throughout your journey, regardless of how fast you progress.</div>
                     </div>
                 </div>
             </div>
@@ -3856,7 +3565,6 @@
                     <button class="chat-action-btn" onclick="assistantNavigate('faq')">❓ Open FAQ Section</button>
                     <button class="chat-action-btn" onclick="assistantNavigate('community')">👥 Join Community</button>
                     <button class="chat-action-btn" onclick="assistantNavigate('tracks')">🎯 Explore Skill Tracks</button>
-                    <button class="chat-action-btn" onclick="assistantNavigate('tools')">🛠️ See Tools & Datasets</button>
                     <button class="chat-action-btn" onclick="assistantNavigate('contacts')">📧 Contact Us</button>
                 </div>
                 <div class="chat-message" style="margin-top: 1rem; padding: 0.8rem; background: rgba(0, 246, 255, 0.1); border-left: 3px solid var(--neon-cyan);">
