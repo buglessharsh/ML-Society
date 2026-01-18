@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Randi No.2 | Reserve Your Moment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep-wine: #1a0a0f;
+            --midnight-black: #0a0508;
+            --soft-plum: #2d1b2e;
+            --rose-gold: #d4a574;
+            --blush: #c98a8a;
+            --soft-glow: rgba(212, 165, 116, 0.3);
+            --glass-bg: rgba(45, 27, 46, 0.25);
+            --glass-border: rgba(212, 165, 116, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--midnight-black) 0%, var(--deep-wine) 50%, var(--soft-plum) 100%);
+            color: #f5f5f5;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Romantic ambient background animations */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--soft-glow) 0%, transparent 70%);
+            opacity: 0.15;
+            animation: pulse 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 165, 116, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(201, 138, 138, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(212, 165, 116, 0.05) 0%, transparent 60%);
+            animation: romanticFloat 25s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.1) translate(20px, 20px); }
+        }
+
+        @keyframes romanticFloat {
+            0%, 100% { 
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            33% { 
+                transform: translate(30px, -30px) scale(1.05);
+                opacity: 0.4;
+            }
+            66% { 
+                transform: translate(-20px, 20px) scale(0.95);
+                opacity: 0.35;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--rose-gold) 0%, var(--blush) 50%, var(--rose-gold) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            position: relative;
+            animation: seductiveShimmer 4s ease-in-out infinite, gentlePulse 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(212, 165, 116, 0.5)) 
+                    drop-shadow(0 0 60px rgba(201, 138, 138, 0.3));
+        }
+
+        .brand-name::before {
+            content: 'Lucky Randi No.2';
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, var(--blush) 0%, var(--rose-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.5;
+            filter: blur(15px);
+            z-index: -1;
+            animation: seductiveShimmer 4s ease-in-out infinite reverse;
+        }
+
+        @keyframes seductiveShimmer {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .tagline {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            color: rgba(245, 245, 245, 0.85);
+            margin-bottom: 50px;
+            line-height: 1.8;
+            max-width: 600px;
+            font-style: italic;
+        }
+
+        /* CTA Button - Seductive Enhanced */
+        .cta-button {
+            display: inline-block;
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--midnight-black);
+            background: linear-gradient(135deg, var(--rose-gold) 0%, var(--blush) 50%, var(--rose-gold) 100%);
+            background-size: 200% auto;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 10px 30px rgba(212, 165, 116, 0.4),
+                0 0 40px rgba(212, 165, 116, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: seductiveGlow 3s ease-in-out infinite;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.8s ease-out, height 0.8s ease-out, opacity 0.8s ease-out;
+            opacity: 0;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 70%
+            );
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            transition: transform 0.6s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.08) translateY(-2px);
+            background-position: 100% center;
+            box-shadow: 
+                0 20px 50px rgba(212, 165, 116, 0.6),
+                0 0 60px rgba(212, 165, 116, 0.4),
+                0 0 80px rgba(201, 138, 138, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button:hover::before {
+            width: 400px;
+            height: 400px;
+            opacity: 1;
+        }
+
+        .cta-button:hover::after {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover span {
+            transform: scale(1.05);
+        }
+
+        @keyframes seductiveGlow {
+            0%, 100% {
+                box-shadow: 
+                    0 10px 30px rgba(212, 165, 116, 0.4),
+                    0 0 40px rgba(212, 165, 116, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                box-shadow: 
+                    0 10px 35px rgba(212, 165, 116, 0.5),
+                    0 0 50px rgba(212, 165, 116, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        /* Section Spacing */
+        section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        /* Experience Section */
+        .experience {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .experience h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--rose-gold);
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .experience-text {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            line-height: 2;
+            color: rgba(245, 245, 245, 0.8);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* Booking Section */
+        .booking {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .booking h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--rose-gold);
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Premium Glassmorphism Card - Enhanced */
+        .booking-card {
+            background: linear-gradient(
+                135deg,
+                rgba(45, 27, 46, 0.35) 0%,
+                rgba(26, 10, 15, 0.3) 50%,
+                rgba(45, 27, 46, 0.35) 100%
+            );
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(212, 165, 116, 0.25);
+            border-radius: 24px;
+            padding: 60px 50px;
+            box-shadow: 
+                0 25px 80px rgba(0, 0, 0, 0.5),
+                0 0 50px rgba(212, 165, 116, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(212, 165, 116, 0.1);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle,
+                rgba(212, 165, 116, 0.2) 0%,
+                rgba(201, 138, 138, 0.15) 30%,
+                transparent 70%
+            );
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            pointer-events: none;
+            transform: scale(0.8);
+            animation: cardAmbientGlow 8s ease-in-out infinite;
+        }
+
+        .booking-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(212, 165, 116, 0.05) 0%,
+                transparent 50%,
+                rgba(201, 138, 138, 0.05) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            border-radius: 24px;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: rgba(212, 165, 116, 0.4);
+            box-shadow: 
+                0 35px 100px rgba(0, 0, 0, 0.6),
+                0 0 80px rgba(212, 165, 116, 0.25),
+                0 0 120px rgba(201, 138, 138, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                inset 0 -1px 0 rgba(212, 165, 116, 0.2);
+        }
+
+        .booking-card:hover::before {
+            opacity: 0.4;
+            transform: scale(1.1);
+        }
+
+        .booking-card:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes cardAmbientGlow {
+            0%, 100% {
+                transform: scale(0.8) translate(0, 0);
+                opacity: 0.2;
+            }
+            50% {
+                transform: scale(1.1) translate(20px, -20px);
+                opacity: 0.3;
+            }
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            color: rgba(245, 245, 245, 0.7);
+            margin-bottom: 10px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 16px 22px;
+            background: linear-gradient(
+                135deg,
+                rgba(26, 10, 15, 0.7) 0%,
+                rgba(45, 27, 46, 0.6) 100%
+            );
+            border: 1px solid rgba(212, 165, 116, 0.25);
+            border-radius: 12px;
+            color: #f5f5f5;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+            box-shadow: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.2),
+                0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--rose-gold);
+            box-shadow: 
+                0 0 25px rgba(212, 165, 116, 0.4),
+                0 0 40px rgba(212, 165, 116, 0.2),
+                inset 0 2px 4px rgba(0, 0, 0, 0.2),
+                0 1px 0 rgba(255, 255, 255, 0.05);
+            background: linear-gradient(
+                135deg,
+                rgba(26, 10, 15, 0.85) 0%,
+                rgba(45, 27, 46, 0.75) 100%
+            );
+            transform: translateY(-1px);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(245, 245, 245, 0.4);
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d4a574' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            padding-right: 45px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--midnight-black);
+            background: linear-gradient(135deg, var(--rose-gold) 0%, var(--blush) 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+            margin-top: 20px;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.5);
+        }
+
+        .submit-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .submit-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            color: rgba(245, 245, 245, 0.5);
+            font-size: 0.9rem;
+            font-style: italic;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 90vh;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .booking-card {
+                padding: 35px 25px;
+            }
+
+            .cta-button,
+            .submit-button {
+                padding: 15px 35px;
+                font-size: 1rem;
+            }
+
+            .time-slots-container {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+
+            .time-slot {
+                padding: 12px 14px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            margin-top: 30px;
+            color: var(--rose-gold);
+            font-size: 1.1rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Time Slots Styling */
+        .time-slots-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .time-slot {
+            padding: 14px 18px;
+            background: linear-gradient(
+                135deg,
+                rgba(26, 10, 15, 0.6) 0%,
+                rgba(45, 27, 46, 0.5) 100%
+            );
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            border-radius: 10px;
+            color: rgba(245, 245, 245, 0.8);
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.2),
+                0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .time-slot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.2) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        .time-slot:hover:not(.disabled):not(.selected) {
+            border-color: rgba(212, 165, 116, 0.4);
+            background: linear-gradient(
+                135deg,
+                rgba(26, 10, 15, 0.75) 0%,
+                rgba(45, 27, 46, 0.65) 100%
+            );
+            transform: translateY(-2px);
+            box-shadow: 
+                0 0 20px rgba(212, 165, 116, 0.2),
+                inset 0 2px 4px rgba(0, 0, 0, 0.2),
+                0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .time-slot:hover:not(.disabled):not(.selected)::before {
+            width: 150px;
+            height: 150px;
+            opacity: 1;
+        }
+
+        .time-slot.selected {
+            background: linear-gradient(135deg, var(--rose-gold) 0%, var(--blush) 100%);
+            color: var(--midnight-black);
+            border-color: var(--rose-gold);
+            box-shadow: 
+                0 0 25px rgba(212, 165, 116, 0.5),
+                0 0 40px rgba(212, 165, 116, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+            font-weight: 500;
+        }
+
+        .time-slot.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background: linear-gradient(
+                135deg,
+                rgba(26, 10, 15, 0.4) 0%,
+                rgba(45, 27, 46, 0.3) 100%
+            );
+            border-color: rgba(212, 165, 116, 0.1);
+            position: relative;
+        }
+
+        .time-slot.disabled::after {
+            content: '✕';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            color: rgba(245, 245, 245, 0.3);
+        }
+
+        .time-slot.loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        @keyframes slotPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 25px rgba(212, 165, 116, 0.5),
+                    0 0 40px rgba(212, 165, 116, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 
+                    0 0 30px rgba(212, 165, 116, 0.6),
+                    0 0 50px rgba(212, 165, 116, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .time-slot.selected {
+            animation: slotPulse 2s ease-in-out infinite;
+        }
+
+        /* Floating Kiss/Lip Elements */
+        .floating-kiss {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatKiss 15s ease-in-out infinite;
+        }
+
+        .floating-lip {
+            position: fixed;
+            font-size: 1.5rem;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatLip 12s ease-in-out infinite;
+        }
+
+        @keyframes floatKiss {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.2;
+            }
+            25% {
+                transform: translate(50px, -50px) rotate(10deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(-30px, -80px) rotate(-10deg);
+                opacity: 0.25;
+            }
+            75% {
+                transform: translate(40px, -30px) rotate(5deg);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes floatLip {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.15;
+            }
+            33% {
+                transform: translate(-40px, -60px) rotate(-15deg);
+                opacity: 0.25;
+            }
+            66% {
+                transform: translate(60px, -40px) rotate(15deg);
+                opacity: 0.2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Kiss/Lip Elements -->
+    <div class="floating-kiss" style="top: 10%; left: 15%; animation-delay: 0s;">💋</div>
+    <div class="floating-lip" style="top: 20%; right: 20%; animation-delay: 2s;">👄</div>
+    <div class="floating-kiss" style="top: 60%; left: 10%; animation-delay: 4s;">💋</div>
+    <div class="floating-lip" style="top: 70%; right: 15%; animation-delay: 1s;">👄</div>
+    <div class="floating-kiss" style="top: 40%; left: 80%; animation-delay: 3s;">💋</div>
+    <div class="floating-lip" style="top: 50%; right: 10%; animation-delay: 5s;">👄</div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="brand-name">Lucky Randi No.2 💋</h1>
+                <p class="tagline">💋 Where moments become memories. Reserve your exclusive encounter in an atmosphere of discretion and depth. 💋</p>
+                <a href="#booking" class="cta-button">
+                    <span>💋 Reserve Your Moment 💋</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience">
+        <div class="container">
+            <h2>The Experience 💋</h2>
+            <p class="experience-text">
+                💋 In a world of constant noise, we offer something rare: presence. Each meeting is crafted with intention, 
+                wrapped in an aura of exclusivity and intimacy. Here, time slows, conversations deepen, and connections 
+                transcend the ordinary. We believe in the power of meaningful encounters—where discretion meets desire, 
+                and every moment is treated with the reverence it deserves. This is not merely a booking; it is an invitation 
+                to step into a space where you can be fully present, fully seen, fully alive. 💋
+            </p>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="booking" id="booking">
+        <div class="container">
+            <h2>Reserve Your Moment 💋</h2>
+            <div class="booking-card">
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="meetingType">Meeting Type 💋</label>
+                        <select id="meetingType" name="meetingType" required>
+                            <option value="">Select an option</option>
+                            <option value="1hour">1 Hour - 600 Rupees 💋</option>
+                            <option value="2hours">2 Hours - 1200 Rupees 💋💋</option>
+                            <option value="6hours">6 Hours - 3000 Rupees 💋💋💋</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Select Date 💋</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    
+                    <div class="form-group" id="timeSlotsGroup" style="display: none;">
+                        <label>Available Time Slots 💋</label>
+                        <div class="time-slots-container" id="timeSlotsContainer">
+                            <!-- Time slots will be generated here -->
+                        </div>
+                        <input type="hidden" id="selectedTime" name="time" required>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">
+                        <span>💋 Confirm Reservation 💋</span>
+                    </button>
+                </form>
+                
+                <div class="success-message" id="successMessage">
+                    💋✨ Your reservation has been received. We'll be in touch soon. 💋✨
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>💋 In discretion, we find freedom. In intimacy, we find truth. 💋</p>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // SLOT AVAILABILITY SYSTEM
+        // ============================================
+        /*
+         * SLOT LOGIC EXPLANATION:
+         * 
+         * 1. DATE SELECTION:
+         *    - Users can only select dates from today onwards
+         *    - Past dates are automatically disabled by the date input
+         *    - Maximum selectable date is 3 months in the future
+         * 
+         * 2. TIME SLOT GENERATION:
+         *    - Slots are auto-generated from 6 PM (18:00) to 11 PM (23:00)
+         *    - Each slot is 1 hour duration
+         *    - Slots appear in 12-hour format (6:00 PM, 7:00 PM, etc.)
+         * 
+         * 3. BOOKED SLOT DETECTION:
+         *    - Mock data structure: { "YYYY-MM-DD HH:MM": true }
+         *    - When a date is selected, system checks each slot against booked slots
+         *    - Booked slots are visually disabled and non-clickable
+         * 
+         * 4. SELECTION FLOW:
+         *    - User selects date → Time slots appear
+         *    - User clicks available slot → Slot highlights with glow
+         *    - Selected slot is stored in state and hidden input field
+         *    - Form validation ensures a slot is selected before submission
+         * 
+         * 5. STATE MANAGEMENT:
+         *    - slotState.selectedDate: Currently selected date
+         *    - slotState.selectedTime: Currently selected time (HH:MM format)
+         *    - slotState.availableSlots: Array of available slots for selected date
+         * 
+         * 6. UX FEATURES:
+         *    - Smooth fade-in when slots appear
+         *    - Hover effects with gentle glow
+         *    - Selected slot pulses with animation
+         *    - Disabled slots show X mark
+         *    - Auto-scroll to keep selected slot in view
+         */
+        
+        // Mock booked slots data (in a real app, this would come from a backend)
+        const mockBookedSlots = {
+            // Format: "YYYY-MM-DD HH:MM"
+            '2024-12-20 18:00': true,
+            '2024-12-20 19:00': true,
+            '2024-12-20 21:00': true,
+            '2024-12-21 20:00': true,
+            '2024-12-21 22:00': true,
+            '2024-12-22 18:00': true,
+            '2024-12-22 19:00': true,
+            '2024-12-23 20:00': true,
+            '2024-12-23 21:00': true,
+        };
+
+        // Slot configuration
+        const SLOT_CONFIG = {
+            startHour: 18,  // 6 PM
+            endHour: 23,    // 11 PM
+            slotDuration: 60 // 60 minutes
+        };
+
+        // State management
+        const slotState = {
+            selectedDate: null,
+            selectedTime: null,
+            availableSlots: []
+        };
+
+        // Utility: Format time for display
+        function formatTime(hour, minute = 0) {
+            const period = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
+            const displayMinute = minute.toString().padStart(2, '0');
+            return `${displayHour}:${displayMinute} ${period}`;
+        }
+
+        // Utility: Format time for storage (24-hour format)
+        function formatTimeForStorage(hour, minute = 0) {
+            return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+        }
+
+        // Utility: Check if slot is booked
+        function isSlotBooked(date, time) {
+            const dateStr = date.split('T')[0];
+            const timeStr = time;
+            const key = `${dateStr} ${timeStr}`;
+            return mockBookedSlots[key] === true;
+        }
+
+        // Utility: Check if date is in the past
+        function isPastDate(dateString) {
+            const selectedDate = new Date(dateString);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            selectedDate.setHours(0, 0, 0, 0);
+            return selectedDate < today;
+        }
+
+        // Generate available time slots
+        function generateTimeSlots() {
+            const slots = [];
+            for (let hour = SLOT_CONFIG.startHour; hour < SLOT_CONFIG.endHour; hour++) {
+                slots.push({
+                    hour: hour,
+                    minute: 0,
+                    display: formatTime(hour),
+                    value: formatTimeForStorage(hour)
+                });
+            }
+            return slots;
+        }
+
+        // Render time slots
+        function renderTimeSlots(date) {
+            const container = document.getElementById('timeSlotsContainer');
+            const timeSlotsGroup = document.getElementById('timeSlotsGroup');
+            
+            if (!date || isPastDate(date)) {
+                timeSlotsGroup.style.display = 'none';
+                slotState.selectedTime = null;
+                document.getElementById('selectedTime').value = '';
+                return;
+            }
+
+            // Show time slots container
+            timeSlotsGroup.style.display = 'block';
+            
+            // Generate slots
+            const allSlots = generateTimeSlots();
+            container.innerHTML = '';
+
+            allSlots.forEach(slot => {
+                const slotElement = document.createElement('div');
+                slotElement.className = 'time-slot';
+                slotElement.textContent = slot.display;
+                slotElement.dataset.time = slot.value;
+                slotElement.dataset.hour = slot.hour;
+
+                // Check if slot is booked
+                if (isSlotBooked(date, slot.value)) {
+                    slotElement.classList.add('disabled');
+                    slotElement.setAttribute('aria-label', 'Slot unavailable');
+                } else {
+                    slotElement.addEventListener('click', function() {
+                        selectTimeSlot(slot.value, slotElement);
+                    });
+                }
+
+                container.appendChild(slotElement);
+            });
+
+            // Smooth fade-in animation
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                container.style.transition = 'all 0.5s ease';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        // Select a time slot
+        function selectTimeSlot(time, element) {
+            // Remove previous selection
+            document.querySelectorAll('.time-slot.selected').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+
+            // Add selection to clicked slot
+            element.classList.add('selected');
+            slotState.selectedTime = time;
+            document.getElementById('selectedTime').value = time;
+
+            // Smooth scroll to keep slot in view
+            element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Initialize date picker
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+        dateInput.setAttribute('max', getMaxDate()); // Set max date (e.g., 3 months ahead)
+
+        // Get max selectable date (3 months from today)
+        function getMaxDate() {
+            const maxDate = new Date();
+            maxDate.setMonth(maxDate.getMonth() + 3);
+            return maxDate.toISOString().split('T')[0];
+        }
+
+        // Handle date selection
+        dateInput.addEventListener('change', function(e) {
+            const selectedDate = e.target.value;
+            
+            if (!selectedDate) {
+                document.getElementById('timeSlotsGroup').style.display = 'none';
+                slotState.selectedDate = null;
+                slotState.selectedTime = null;
+                return;
+            }
+
+            if (isPastDate(selectedDate)) {
+                alert('Please select a future date.');
+                e.target.value = '';
+                return;
+            }
+
+            slotState.selectedDate = selectedDate;
+            slotState.selectedTime = null;
+            document.getElementById('selectedTime').value = '';
+            renderTimeSlots(selectedDate);
+        });
+
+        // Validate form submission
+        const bookingForm = document.getElementById('bookingForm');
+        bookingForm.addEventListener('submit', function(e) {
+            if (!slotState.selectedTime) {
+                e.preventDefault();
+                alert('Please select an available time slot.');
+                return;
+            }
+        });
+
+        // ============================================
+        // EXISTING FUNCTIONALITY
+        // ============================================
+
+        // Smooth scroll for CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            const bookingSection = document.getElementById('booking');
+            bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // Form submission
+        const successMessage = document.getElementById('successMessage');
+
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                meetingType: document.getElementById('meetingType').value,
+                date: slotState.selectedDate,
+                time: slotState.selectedTime
+            };
+
+            // Log to console (in a real app, this would send to a backend)
+            console.log('Reservation Details:', formData);
+
+            // In a real app, you would mark this slot as booked here
+            // For demo purposes, we'll just log it
+            if (slotState.selectedDate && slotState.selectedTime) {
+                const bookingKey = `${slotState.selectedDate} ${slotState.selectedTime}`;
+                console.log('Would mark as booked:', bookingKey);
+            }
+
+            // Hide form and show success message
+            bookingForm.style.opacity = '0';
+            bookingForm.style.transform = 'translateY(-20px)';
+            bookingForm.style.transition = 'all 0.5s ease';
+            
+            setTimeout(() => {
+                bookingForm.style.display = 'none';
+                successMessage.classList.add('show');
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 500);
+        });
+
+        // Add subtle glow effect on input focus
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+                this.parentElement.style.transition = 'transform 0.3s ease';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+
+        // Parallax effect on scroll (subtle)
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            const heroContent = document.querySelector('.hero-content');
+            
+            if (currentScroll < window.innerHeight) {
+                const opacity = 1 - (currentScroll / window.innerHeight) * 0.5;
+                const translateY = currentScroll * 0.3;
+                heroContent.style.opacity = opacity;
+                heroContent.style.transform = `translateY(${translateY}px)`;
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
