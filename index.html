@@ -12,6 +12,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Macky's ML Society</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700;800&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -20,27 +23,58 @@
         }
 
         :root {
-            --bg-dark: #0a0e1a;
-            --bg-charcoal: #14192e;
-            --bg-card: #1a1f35;
-            --neon-cyan: #00f0ff;
-            --neon-purple: #b026ff;
-            --neon-blue: #0066ff;
-            --neon-green: #00ff88;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b8d0;
-            --gradient-1: linear-gradient(135deg, #0066ff 0%, #b026ff 100%);
-            --gradient-2: linear-gradient(135deg, #00f0ff 0%, #0066ff 100%);
-            --gradient-3: linear-gradient(135deg, #b026ff 0%, #00ff88 100%);
+            --bg-dark: #0b0f14;
+            --bg-charcoal: #151920;
+            --bg-card: #1a1f26;
+            --muted-cyan: #4a9ba8;
+            --muted-teal: #5fb3b8;
+            --desat-purple: #6b5b95;
+            --text-primary: #e8e8e8;
+            --text-secondary: #a0a8b0;
+            --accent-cyan: #5fb3b8;
+            --accent-purple: #6b5b95;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Exo 2', 'Rajdhani', 'Orbitron', sans-serif;
             background: var(--bg-dark);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
+            position: relative;
+        }
+
+        /* Subtle Background Patterns */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.02;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(95, 179, 184, 0.1) 2px, rgba(95, 179, 184, 0.1) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(95, 179, 184, 0.05) 2px, rgba(95, 179, 184, 0.05) 4px);
+            background-size: 20px 20px, 40px 40px;
+        }
+
+        /* Subtle Noise/Grain Overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.015;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.3"/></svg>');
+            background-size: 200px 200px;
         }
 
         /* Hide default cursor only on non-touch devices */
@@ -51,36 +85,35 @@
         }
 
         /* Custom Cursor - Smooth & Precise */
+        /* Inner Dot Cursor - Instant 1:1 tracking */
         .custom-cursor {
             position: fixed !important;
-            width: 20px;
-            height: 20px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: var(--neon-cyan) !important;
+            background: var(--muted-cyan) !important;
             box-shadow: 
-                0 0 10px var(--neon-cyan),
-                0 0 20px var(--neon-cyan),
-                0 0 30px var(--neon-cyan) !important;
-            pointer-events: none;
+                0 0 6px rgba(95, 179, 184, 0.5),
+                0 0 12px rgba(95, 179, 184, 0.3) !important;
+            pointer-events: none !important;
             z-index: 999999 !important;
-            left: 0;
-            top: 0;
-            will-change: transform;
-            transition: background 0.2s ease, box-shadow 0.2s ease;
+            left: 0 !important;
+            top: 0 !important;
+            will-change: transform !important;
+            /* NO transition on transform - movement controlled by JavaScript only */
             opacity: 1 !important;
             visibility: visible !important;
+            display: block !important;
             transform: translate3d(0, 0, 0) translate(-50%, -50%);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
         }
 
         .custom-cursor.hover {
-            transform: translate3d(0, 0, 0) translate(-50%, -50%) scale(2);
-            background: var(--neon-purple);
+            background: var(--muted-teal) !important;
             box-shadow: 
-                0 0 20px var(--neon-purple),
-                0 0 40px var(--neon-purple),
-                0 0 60px var(--neon-purple);
+                0 0 8px rgba(95, 179, 184, 0.6),
+                0 0 16px rgba(95, 179, 184, 0.4) !important;
         }
 
         .custom-cursor.glitch {
@@ -102,29 +135,30 @@
             }
         }
 
-        /* Cursor Outer Ring */
+        /* Outer Ring Cursor - Smooth trailing animation */
         .cursor-ring {
             position: fixed !important;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--neon-cyan) !important;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(95, 179, 184, 0.4) !important;
             border-radius: 50%;
-            pointer-events: none;
+            pointer-events: none !important;
             z-index: 999998 !important;
-            left: 0;
-            top: 0;
-            will-change: transform;
-            transition: border-color 0.2s ease;
+            left: 0 !important;
+            top: 0 !important;
+            will-change: transform !important;
+            /* NO transition on transform - movement controlled by JavaScript lerp only */
+            transition: border-color 0.15s ease; /* Only for color change, not position */
             opacity: 1 !important;
             visibility: visible !important;
+            display: block !important;
             transform: translate3d(0, 0, 0) translate(-50%, -50%);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
         }
 
         .cursor-ring.hover {
-            transform: translate3d(0, 0, 0) translate(-50%, -50%) scale(1.5);
-            border-color: var(--neon-purple);
+            border-color: rgba(95, 179, 184, 0.5);
         }
 
         /* Glitch Effect Overlay */
@@ -245,103 +279,6 @@
             }
         }
 
-        /* Subtle 2D Matrix-Style Animation - ML Vectors & Numbers */
-        .matrix-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-            opacity: 0.15;
-        }
-
-        .matrix-vector {
-            position: absolute;
-            font-family: 'Courier New', 'Monaco', monospace;
-            font-size: 12px;
-            color: rgba(0, 246, 255, 0.4);
-            white-space: nowrap;
-            text-shadow: 0 0 3px rgba(0, 246, 255, 0.2);
-            user-select: none;
-        }
-
-        /* Vertical movement vectors */
-        .matrix-vector.vertical {
-            animation: matrixFallVertical 20s linear infinite;
-        }
-
-        .matrix-vector.vertical:nth-child(1) { left: 5%; animation-delay: 0s; animation-duration: 18s; }
-        .matrix-vector.vertical:nth-child(2) { left: 12%; animation-delay: 2s; animation-duration: 22s; }
-        .matrix-vector.vertical:nth-child(3) { left: 18%; animation-delay: 4s; animation-duration: 20s; }
-        .matrix-vector.vertical:nth-child(4) { left: 25%; animation-delay: 1s; animation-duration: 19s; }
-        .matrix-vector.vertical:nth-child(5) { left: 32%; animation-delay: 3s; animation-duration: 21s; }
-        .matrix-vector.vertical:nth-child(6) { left: 38%; animation-delay: 5s; animation-duration: 23s; }
-        .matrix-vector.vertical:nth-child(7) { left: 45%; animation-delay: 0.5s; animation-duration: 17s; }
-        .matrix-vector.vertical:nth-child(8) { left: 52%; animation-delay: 2.5s; animation-duration: 20s; }
-        .matrix-vector.vertical:nth-child(9) { left: 58%; animation-delay: 4.5s; animation-duration: 24s; }
-        .matrix-vector.vertical:nth-child(10) { left: 65%; animation-delay: 1.5s; animation-duration: 18s; }
-        .matrix-vector.vertical:nth-child(11) { left: 72%; animation-delay: 3.5s; animation-duration: 22s; }
-        .matrix-vector.vertical:nth-child(12) { left: 78%; animation-delay: 5.5s; animation-duration: 19s; }
-        .matrix-vector.vertical:nth-child(13) { left: 85%; animation-delay: 0.8s; animation-duration: 21s; }
-        .matrix-vector.vertical:nth-child(14) { left: 92%; animation-delay: 2.8s; animation-duration: 23s; }
-        .matrix-vector.vertical:nth-child(15) { left: 96%; animation-delay: 4.8s; animation-duration: 17s; }
-
-        /* Diagonal movement vectors */
-        .matrix-vector.diagonal {
-            animation: matrixFallDiagonal 25s linear infinite;
-        }
-
-        .matrix-vector.diagonal:nth-child(16) { left: 8%; animation-delay: 0s; animation-duration: 24s; }
-        .matrix-vector.diagonal:nth-child(17) { left: 15%; animation-delay: 3s; animation-duration: 26s; }
-        .matrix-vector.diagonal:nth-child(18) { left: 22%; animation-delay: 6s; animation-duration: 23s; }
-        .matrix-vector.diagonal:nth-child(19) { left: 28%; animation-delay: 1.5s; animation-duration: 25s; }
-        .matrix-vector.diagonal:nth-child(20) { left: 35%; animation-delay: 4.5s; animation-duration: 27s; }
-        .matrix-vector.diagonal:nth-child(21) { left: 42%; animation-delay: 7.5s; animation-duration: 22s; }
-        .matrix-vector.diagonal:nth-child(22) { left: 48%; animation-delay: 2s; animation-duration: 24s; }
-        .matrix-vector.diagonal:nth-child(23) { left: 55%; animation-delay: 5s; animation-duration: 26s; }
-        .matrix-vector.diagonal:nth-child(24) { left: 62%; animation-delay: 8s; animation-duration: 23s; }
-        .matrix-vector.diagonal:nth-child(25) { left: 68%; animation-delay: 2.5s; animation-duration: 25s; }
-        .matrix-vector.diagonal:nth-child(26) { left: 75%; animation-delay: 5.5s; animation-duration: 27s; }
-        .matrix-vector.diagonal:nth-child(27) { left: 82%; animation-delay: 8.5s; animation-duration: 22s; }
-        .matrix-vector.diagonal:nth-child(28) { left: 88%; animation-delay: 3s; animation-duration: 24s; }
-        .matrix-vector.diagonal:nth-child(29) { left: 94%; animation-delay: 6s; animation-duration: 26s; }
-
-        @keyframes matrixFallVertical {
-            0% {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-
-        @keyframes matrixFallDiagonal {
-            0% {
-                transform: translate(-20px, -100px) rotate(5deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.25;
-            }
-            90% {
-                opacity: 0.25;
-            }
-            100% {
-                transform: translate(20px, 100vh) rotate(5deg);
-                opacity: 0;
-            }
-        }
 
         /* Machine Glitch Text */
         .glitch-text {
@@ -828,18 +765,24 @@
             top: 0 !important;
             left: 0 !important;
             width: 100% !important;
-            background: rgba(10, 14, 26, 0.98) !important;
-            backdrop-filter: blur(20px) !important;
-            -webkit-backdrop-filter: blur(20px) !important;
+            background: rgba(11, 15, 20, 0.85) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
             padding: 1.5rem 0;
             z-index: 99999 !important;
-            border-bottom: 1px solid rgba(0, 246, 255, 0.3);
+            border-bottom: 1px solid rgba(95, 179, 184, 0.2);
             transition: all 0.3s ease;
             overflow: visible;
             isolation: isolate;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             transform: translateZ(0);
             will-change: transform;
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 0;
+            background: rgba(11, 15, 20, 0.92) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
         }
 
         .nav-container {
@@ -866,75 +809,180 @@
         .nav-brand {
             position: relative;
             z-index: 100000 !important;
-        }
-
-        .nav-brand {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.1rem;
+            font-weight: 600;
             text-decoration: none;
-            animation: glow 3s ease-in-out infinite;
             display: flex;
             align-items: center;
             gap: 0.8rem;
         }
 
-        /* MMLS Logo */
+        /* Futuristic Sci-Fi Logo */
         .mmls-logo {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--gradient-1);
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(176, 38, 255, 0.5);
-            animation: logoPulse 3s ease-in-out infinite;
+            background: transparent;
+            overflow: visible;
+            opacity: 0.6;
         }
 
+        /* AI Core Node - Central Glowing Circle */
         .mmls-logo::before {
-            content: 'MMLS';
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            letter-spacing: 1px;
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--muted-cyan);
+            box-shadow: 
+                0 0 4px rgba(95, 179, 184, 0.3),
+                inset 0 0 3px rgba(95, 179, 184, 0.2);
+            z-index: 3;
+            opacity: 0.7;
         }
 
+        /* Neural Network Lines - Radiating Connections */
         .mmls-logo::after {
             content: '';
             position: absolute;
+            width: 60px;
+            height: 60px;
+            background: transparent;
+            border: none;
+            animation: none;
+        }
+
+        /* Neural Network Connection Lines */
+        .neural-lines {
+            position: absolute;
             width: 100%;
             height: 100%;
-            border-radius: 12px;
-            border: 2px solid var(--neon-cyan);
-            animation: logoRotate 4s linear infinite;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        @keyframes logoPulse {
+        .neural-line {
+            position: absolute;
+            background: linear-gradient(to right, 
+                transparent 0%,
+                rgba(95, 179, 184, 0.15) 20%,
+                rgba(95, 179, 184, 0.2) 50%,
+                rgba(95, 179, 184, 0.15) 80%,
+                transparent 100%);
+            height: 1px;
+            transform-origin: center center;
+        }
+
+        .neural-line.line-1 { width: 30px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(0deg) translateX(10px); }
+        .neural-line.line-2 { width: 30px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg) translateX(10px); animation-delay: 0.2s; }
+        .neural-line.line-3 { width: 30px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(90deg) translateX(10px); animation-delay: 0.4s; }
+        .neural-line.line-4 { width: 30px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(135deg) translateX(10px); animation-delay: 0.6s; }
+        .neural-line.line-5 { width: 25px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(22.5deg) translateX(10px); animation-delay: 0.1s; opacity: 0.6; }
+        .neural-line.line-6 { width: 25px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(67.5deg) translateX(10px); animation-delay: 0.3s; opacity: 0.6; }
+        .neural-line.line-7 { width: 25px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(112.5deg) translateX(10px); animation-delay: 0.5s; opacity: 0.6; }
+        .neural-line.line-8 { width: 25px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(157.5deg) translateX(10px); animation-delay: 0.7s; opacity: 0.6; }
+
+        /* Digital Particles */
+        .logo-particle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: rgba(95, 179, 184, 0.4);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .logo-particle.p1 { top: 20%; left: 30%; }
+        .logo-particle.p2 { top: 60%; right: 25%; }
+        .logo-particle.p3 { bottom: 25%; left: 40%; }
+        .logo-particle.p4 { top: 35%; right: 20%; }
+
+        @keyframes corePulse {
             0%, 100% {
                 transform: scale(1);
-                box-shadow: 0 0 20px rgba(176, 38, 255, 0.5);
+                opacity: 1;
+                box-shadow: 
+                    0 0 20px rgba(0, 240, 255, 0.8),
+                    0 0 40px rgba(0, 102, 255, 0.6),
+                    0 0 60px rgba(176, 38, 255, 0.4),
+                    inset 0 0 10px rgba(255, 255, 255, 0.2);
             }
             50% {
-                transform: scale(1.05);
-                box-shadow: 0 0 30px rgba(176, 38, 255, 0.8);
+                transform: scale(1.1);
+                opacity: 0.9;
+                box-shadow: 
+                    0 0 30px rgba(0, 240, 255, 1),
+                    0 0 60px rgba(0, 102, 255, 0.8),
+                    0 0 90px rgba(176, 38, 255, 0.6),
+                    inset 0 0 15px rgba(255, 255, 255, 0.3);
             }
         }
 
-        @keyframes logoRotate {
-            0% {
-                transform: rotate(0deg);
+        @keyframes neuralPulse {
+            0%, 100% {
+                opacity: 0.4;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(3px, -5px) scale(1.3);
                 opacity: 1;
             }
-            100% {
-                transform: rotate(360deg);
-                opacity: 0.5;
-            }
+        }
+
+        /* Futuristic Typography for Logo Text */
+        .nav-brand span {
+            font-family: 'Orbitron', 'Exo 2', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--text-primary);
+            position: relative;
+            font-size: 1rem;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--muted-cyan) 0%, var(--text-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .nav-brand:hover span {
+            background: linear-gradient(135deg, var(--muted-cyan) 0%, var(--muted-teal) 50%, var(--text-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Mid-Page Brand Title */
+        .mid-page-title {
+            font-family: 'Orbitron', 'Courier New', monospace;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            background: linear-gradient(135deg, #00f0ff 0%, #0066ff 50%, #b026ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 
+                0 0 10px rgba(0, 240, 255, 0.5),
+                0 0 20px rgba(0, 102, 255, 0.3),
+                0 0 30px rgba(176, 38, 255, 0.2);
+            position: relative;
+            margin: 0;
         }
 
         /* ML Image Container */
@@ -1017,30 +1065,39 @@
         }
 
         .nav-menu a {
+            font-family: 'Courier New', 'Monaco', monospace;
+            font-weight: 400;
             color: var(--text-secondary);
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             position: relative;
             padding: 0.5rem 0;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
         }
 
         .nav-menu a::after {
-            content: '';
+            content: '_';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 0;
-            height: 2px;
-            background: var(--gradient-2);
+            height: 100%;
+            color: var(--muted-cyan);
+            overflow: hidden;
             transition: width 0.3s ease;
+            opacity: 0;
         }
 
-        .nav-menu a:hover::after {
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
             width: 100%;
+            opacity: 1;
         }
 
-        .nav-menu a:hover {
-            color: var(--neon-cyan);
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--muted-cyan);
         }
 
         /* Hero Section */
@@ -1054,6 +1111,125 @@
             position: relative;
             max-width: 1600px;
             margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(90deg, transparent, transparent 98px, rgba(95, 179, 184, 0.03) 98px, rgba(95, 179, 184, 0.03) 100px),
+                repeating-linear-gradient(0deg, transparent, transparent 98px, rgba(95, 179, 184, 0.02) 98px, rgba(95, 179, 184, 0.02) 100px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+
+        /* Neural Core Visual (SVG) */
+        .neural-core {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 200px;
+            z-index: 1;
+            opacity: 0.15;
+            pointer-events: none;
+            will-change: transform;
+            transform: translate3d(0, -50%, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .neural-core-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px rgba(95, 179, 184, 0.2));
+            will-change: transform;
+        }
+
+        .neural-ring {
+            transform-origin: 100px 100px;
+            animation: ringRotate 8s linear infinite;
+            will-change: transform;
+        }
+
+        .neural-ring.ring-1 {
+            animation-duration: 12s;
+            animation-direction: reverse;
+        }
+
+        .neural-ring.ring-2 {
+            animation-duration: 10s;
+        }
+
+        .neural-ring.ring-3 {
+            animation-duration: 15s;
+            animation-direction: reverse;
+        }
+
+        .neural-core-center {
+            filter: drop-shadow(0 0 8px rgba(95, 179, 184, 0.3));
+            will-change: r, opacity;
+        }
+
+        .neural-node {
+            animation: nodePulse 2s ease-in-out infinite;
+            will-change: opacity, r;
+        }
+
+        .neural-node:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .neural-node:nth-child(6) {
+            animation-delay: 1s;
+        }
+
+        .neural-node:nth-child(7) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes ringRotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes nodePulse {
+            0%, 100% {
+                opacity: 0.4;
+                r: 2;
+            }
+            50% {
+                opacity: 0.7;
+                r: 3;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .neural-core {
+                right: 5%;
+                width: 150px;
+                height: 150px;
+            }
+
+            .system-logs-column {
+                font-size: 0.6rem;
+            }
+
+            .system-logs-column:nth-child(4),
+            .system-logs-column:nth-child(5) {
+                display: none;
+            }
         }
 
         @media (max-width: 968px) {
@@ -1066,41 +1242,70 @@
             max-width: 1000px;
             animation: fadeInUp 1s ease;
             position: relative;
-            z-index: 2;
+            z-index: 10;
         }
 
         .hero-title {
-            font-size: 4.5rem;
-            font-weight: bold;
+            font-family: 'Orbitron', 'Exo 2', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
             margin-bottom: 1.5rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary);
             line-height: 1.2;
             position: relative;
-            animation: titleFloat 4s ease-in-out infinite;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            white-space: nowrap;
         }
 
-        .hero-title:hover {
-            animation: titleFloat 4s ease-in-out infinite, textGlitch 0.3s infinite;
+        .hero-title.glitch {
+            animation: glitchEffect 0.3s;
         }
 
-        @keyframes titleFloat {
+        @keyframes glitchEffect {
             0%, 100% {
-                transform: translateY(0);
+                transform: translate(0);
             }
-            50% {
-                transform: translateY(-10px);
+            20% {
+                transform: translate(-1px, 0.5px);
+            }
+            40% {
+                transform: translate(1px, -0.5px);
+            }
+            60% {
+                transform: translate(-0.5px, 0);
+            }
+            80% {
+                transform: translate(0.5px, 0);
             }
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
+            font-family: 'Courier New', 'Monaco', monospace;
+            font-size: 1rem;
+            font-weight: 400;
             color: var(--text-secondary);
             margin-bottom: 3rem;
             line-height: 1.8;
-            animation: fadeIn 1.5s ease;
+            animation: fadeInUp 1s ease 0.5s both;
+            opacity: 0;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeIn {
@@ -1120,8 +1325,9 @@
             transform: translate(-50%, -50%);
             width: 600px;
             height: 400px;
-            z-index: -1;
-            opacity: 0.3;
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
         }
 
         /* ML Training Loss Animation */
@@ -1131,11 +1337,11 @@
             max-width: 800px;
             height: 400px;
             margin: 2rem auto;
-            background: var(--bg-card);
-            border-radius: 15px;
-            border: 1px solid rgba(0, 246, 255, 0.2);
+            background: rgba(26, 31, 38, 0.6);
+            border-radius: 4px;
+            border: 1px solid rgba(95, 179, 184, 0.2);
             padding: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(0, 0, 0, 0.4);
         }
 
         .ml-training-canvas {
@@ -1156,8 +1362,8 @@
             width: 15px;
             height: 15px;
             border-radius: 50%;
-            background: var(--neon-cyan);
-            box-shadow: 0 0 15px var(--neon-cyan);
+            background: var(--muted-cyan);
+            box-shadow: 0 0 8px rgba(95, 179, 184, 0.3);
             animation: nodePulse 2s infinite;
         }
 
@@ -1178,8 +1384,8 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 246, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 246, 255, 0.1) 1px, transparent 1px);
+                linear-gradient(rgba(95, 179, 184, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(95, 179, 184, 0.05) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: gridMove 20s linear infinite;
         }
@@ -1203,17 +1409,20 @@
         }
 
         .btn {
-            padding: 1.2rem 3rem;
+            font-family: 'Courier New', 'Monaco', monospace;
+            padding: 0.9rem 2rem;
             border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 2px;
+            font-size: 0.95rem;
+            font-weight: 400;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-decoration: none;
             display: inline-block;
             position: relative;
             overflow: hidden;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }
 
         .btn::before {
@@ -1235,26 +1444,94 @@
         }
 
         .btn-primary {
-            background: var(--gradient-1);
-            color: white;
-            box-shadow: 0 4px 20px rgba(176, 38, 255, 0.4);
+            background: transparent;
+            color: var(--muted-cyan);
+            border: 1px solid var(--muted-cyan);
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(95, 179, 184, 0.1);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(95, 179, 184, 0.15), transparent);
+            transition: left 0.4s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(176, 38, 255, 0.6);
+            animation: glitchFlicker 0.1s;
+            box-shadow: inset 0 0 12px rgba(95, 179, 184, 0.15);
+            border-color: rgba(95, 179, 184, 0.4);
+        }
+
+        .btn-primary:active {
+            animation: scanline 0.2s;
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--neon-cyan);
-            border: 2px solid var(--neon-cyan);
+            color: var(--muted-cyan);
+            border: 1px solid var(--muted-cyan);
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(95, 179, 184, 0.1);
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(95, 179, 184, 0.15), transparent);
+            transition: left 0.4s ease;
+        }
+
+        .btn-secondary:hover::before {
+            left: 100%;
         }
 
         .btn-secondary:hover {
-            background: rgba(0, 240, 255, 0.1);
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
-            transform: translateY(-5px);
+            animation: glitchFlicker 0.1s;
+            box-shadow: inset 0 0 12px rgba(95, 179, 184, 0.15);
+            border-color: rgba(95, 179, 184, 0.4);
+        }
+
+        .btn-secondary:active {
+            animation: scanline 0.2s;
+        }
+
+        @keyframes glitchFlicker {
+            0%, 100% {
+                transform: translate(0);
+            }
+            50% {
+                transform: translate(1px, 0);
+            }
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(2px);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .btn span {
@@ -1267,7 +1544,7 @@
             padding: 120px 2rem 100px;
             max-width: 1400px;
             margin: 0 auto;
-            background: var(--bg-charcoal);
+            background: var(--bg-dark);
             position: relative;
             z-index: 1;
         }
@@ -1280,16 +1557,17 @@
         }
 
         .team-card {
-            background: rgba(26, 31, 53, 0.95);
+            background: rgba(26, 31, 38, 0.6);
             padding: 1.8rem;
-            border-radius: 15px;
-            border: 1px solid rgba(0, 246, 255, 0.2);
+            border-radius: 4px;
+            border: 1px solid rgba(95, 179, 184, 0.2);
             text-align: center;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             cursor: pointer;
             z-index: 1;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
         .team-card::before {
@@ -1298,9 +1576,9 @@
             top: 0;
             left: -100%;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 246, 255, 0.1), transparent);
-            transition: left 0.5s ease;
+            height: 1px;
+            background: rgba(95, 179, 184, 0.3);
+            transition: left 0.4s ease;
         }
 
         .team-card:hover::before {
@@ -1308,50 +1586,57 @@
         }
 
         .team-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 12px 35px rgba(0, 246, 255, 0.4);
+            transform: translateY(-5px);
+            border-color: rgba(95, 179, 184, 0.4);
+            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.4), 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .team-avatar {
             width: 90px;
             height: 90px;
             border-radius: 50%;
-            background: var(--gradient-1);
+            background: rgba(95, 179, 184, 0.1);
             margin: 0 auto 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.2rem;
             font-weight: bold;
-            color: white;
-            border: 3px solid var(--neon-cyan);
-            box-shadow: 0 0 20px rgba(0, 246, 255, 0.5);
+            color: var(--muted-cyan);
+            border: 1px solid rgba(95, 179, 184, 0.3);
+            box-shadow: inset 0 0 10px rgba(95, 179, 184, 0.1);
             position: relative;
             z-index: 1;
             transition: transform 0.3s ease;
         }
 
         .team-card:hover .team-avatar {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.05);
+            box-shadow: inset 0 0 15px rgba(95, 179, 184, 0.15);
         }
 
         .team-name {
-            color: var(--neon-cyan);
-            font-size: 1.3rem;
-            font-weight: 600;
+            font-family: 'Courier New', 'Monaco', monospace;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 400;
             margin-bottom: 0.3rem;
             position: relative;
             z-index: 1;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
         .team-role {
-            color: var(--neon-purple);
-            font-size: 0.95rem;
+            font-family: 'Courier New', 'Monaco', monospace;
+            color: var(--desat-purple);
+            font-size: 0.85rem;
             margin-bottom: 0.8rem;
             position: relative;
             z-index: 1;
-            font-weight: 500;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
         .team-bio {
@@ -1382,20 +1667,21 @@
         }
 
         .skill-tag {
+            font-family: 'Courier New', 'Monaco', monospace;
             padding: 0.35rem 0.8rem;
-            background: rgba(0, 102, 255, 0.15);
-            color: var(--neon-blue);
-            border-radius: 15px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(0, 102, 255, 0.3);
+            background: rgba(95, 179, 184, 0.1);
+            color: var(--muted-cyan);
+            border-radius: 2px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(95, 179, 184, 0.2);
             transition: all 0.3s ease;
-            font-weight: 500;
+            font-weight: 400;
+            letter-spacing: 0.05em;
         }
 
         .skill-tag:hover {
-            background: rgba(0, 102, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 102, 255, 0.3);
+            background: rgba(95, 179, 184, 0.15);
+            border-color: rgba(95, 179, 184, 0.3);
         }
 
         /* Community Section - Google Style */
@@ -2630,20 +2916,21 @@
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
-            background: rgba(10, 14, 26, 0.95);
+            background: var(--bg-dark);
             border-radius: 0;
         }
 
         .section-title {
-            font-size: 3rem;
+            font-family: 'Courier New', 'Monaco', monospace;
+            font-size: 2.5rem;
+            font-weight: 400;
             text-align: center;
             margin-bottom: 4rem;
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary);
             position: relative;
             z-index: 1;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
         }
 
         /* Ensure sections don't appear through navbar */
@@ -2651,7 +2938,7 @@
             position: relative;
             z-index: 1;
             isolation: isolate;
-            background: rgba(10, 14, 26, 0.95);
+            background: var(--bg-dark);
         }
 
         /* Ensure all content stays below navbar */
@@ -2672,27 +2959,28 @@
         }
 
         .feature-card {
-            background: rgba(26, 31, 53, 0.95);
+            background: rgba(26, 31, 38, 0.6);
             padding: 3rem;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 246, 255, 0.2);
-            transition: all 0.4s ease;
+            border-radius: 4px;
+            border: 1px solid rgba(95, 179, 184, 0.2);
+            transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
             z-index: 1;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
         .feature-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 246, 255, 0.1) 0%, transparent 70%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(95, 179, 184, 0.3);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.3s ease;
         }
 
         .feature-card:hover::before {
@@ -2700,31 +2988,26 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 15px 40px rgba(0, 246, 255, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(95, 179, 184, 0.4);
+            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.4), 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .feature-icon {
-            font-size: 4rem;
+            font-size: 3rem;
             margin-bottom: 1.5rem;
             display: inline-block;
-            animation: iconBounce 3s ease-in-out infinite;
-        }
-
-        @keyframes iconBounce {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-10px) rotate(5deg);
-            }
+            opacity: 0.7;
         }
 
         .feature-card h3 {
-            color: var(--neon-cyan);
-            font-size: 1.8rem;
+            font-family: 'Courier New', 'Monaco', monospace;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-weight: 400;
             margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
         .feature-card p {
@@ -2777,6 +3060,9 @@
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.5rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .hero-subtitle {
@@ -2824,41 +3110,6 @@
         <div class="floating-element" style="top: 60%; right: 15%; animation-delay: 2s; background: radial-gradient(circle, rgba(176, 38, 255, 0.3), transparent);"></div>
         <div class="floating-element" style="bottom: 20%; left: 20%; animation-delay: 4s; background: radial-gradient(circle, rgba(0, 255, 136, 0.3), transparent);"></div>
         
-        <!-- Subtle 2D Matrix-Style Animation -->
-        <div class="matrix-container">
-            <!-- Vertical Vectors -->
-            <div class="matrix-vector vertical">[0.85, -0.23, 1.42]</div>
-            <div class="matrix-vector vertical">[0, 1, 0]</div>
-            <div class="matrix-vector vertical">∇f = [∂f/∂x, ∂f/∂y]</div>
-            <div class="matrix-vector vertical">α = 0.001</div>
-            <div class="matrix-vector vertical">[1.0, 0.5, -0.3]</div>
-            <div class="matrix-vector vertical">θ = [θ₁, θ₂, θ₃]</div>
-            <div class="matrix-vector vertical">λ = 0.01</div>
-            <div class="matrix-vector vertical">[0.92, 0.15, 0.78]</div>
-            <div class="matrix-vector vertical">y = f(x)</div>
-            <div class="matrix-vector vertical">[0, 0, 1]</div>
-            <div class="matrix-vector vertical">∂L/∂w</div>
-            <div class="matrix-vector vertical">[0.67, -0.45, 0.23]</div>
-            <div class="matrix-vector vertical">β = 0.9</div>
-            <div class="matrix-vector vertical">[1.25, 0.88, -0.12]</div>
-            <div class="matrix-vector vertical">η = 1e-4</div>
-            
-            <!-- Diagonal Vectors -->
-            <div class="matrix-vector diagonal">[0.54, 0.71, 0.33]</div>
-            <div class="matrix-vector diagonal">x ∈ ℝⁿ</div>
-            <div class="matrix-vector diagonal">[0.23, -0.67, 0.89]</div>
-            <div class="matrix-vector diagonal">W · x + b</div>
-            <div class="matrix-vector diagonal">[0.95, 0.12, -0.45]</div>
-            <div class="matrix-vector diagonal">σ(z)</div>
-            <div class="matrix-vector diagonal">[0.38, 0.62, 0.15]</div>
-            <div class="matrix-vector diagonal">∂E/∂θ</div>
-            <div class="matrix-vector diagonal">[0.76, -0.34, 0.52]</div>
-            <div class="matrix-vector diagonal">L = Σ(y - ŷ)²</div>
-            <div class="matrix-vector diagonal">[0.44, 0.88, -0.21]</div>
-            <div class="matrix-vector diagonal">ReLU(x)</div>
-            <div class="matrix-vector diagonal">[0.19, -0.56, 0.73]</div>
-            <div class="matrix-vector diagonal">softmax(z)</div>
-        </div>
     </div>
 
     <!-- Main Content -->
@@ -2867,7 +3118,22 @@
         <nav class="navbar">
             <div class="nav-container">
                 <a href="#" class="nav-brand">
-                    <div class="mmls-logo"></div>
+                    <div class="mmls-logo">
+                        <div class="neural-lines">
+                            <div class="neural-line line-1"></div>
+                            <div class="neural-line line-2"></div>
+                            <div class="neural-line line-3"></div>
+                            <div class="neural-line line-4"></div>
+                            <div class="neural-line line-5"></div>
+                            <div class="neural-line line-6"></div>
+                            <div class="neural-line line-7"></div>
+                            <div class="neural-line line-8"></div>
+                        </div>
+                        <div class="logo-particle p1"></div>
+                        <div class="logo-particle p2"></div>
+                        <div class="logo-particle p3"></div>
+                        <div class="logo-particle p4"></div>
+                    </div>
                     <span>Macky's ML Society</span>
                 </a>
                 <ul class="nav-menu">
@@ -2884,11 +3150,36 @@
         <section class="hero" id="home">
             <div class="ml-visualization" id="mlCanvas"></div>
             
+            <!-- Neural Core Visual (SVG) -->
+            <div class="neural-core">
+                <svg width="200" height="200" viewBox="0 0 200 200" class="neural-core-svg">
+                    <!-- Outer Ring -->
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(95, 179, 184, 0.2)" stroke-width="1" class="neural-ring ring-1"/>
+                    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(95, 179, 184, 0.25)" stroke-width="1" class="neural-ring ring-2"/>
+                    <circle cx="100" cy="100" r="40" fill="none" stroke="rgba(95, 179, 184, 0.3)" stroke-width="1" class="neural-ring ring-3"/>
+                    <!-- Central Core -->
+                    <circle cx="100" cy="100" r="30" fill="rgba(95, 179, 184, 0.15)" class="neural-core-center">
+                        <animate attributeName="r" values="30;35;30" dur="3s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.15;0.25;0.15" dur="3s" repeatCount="indefinite"/>
+                    </circle>
+                    <!-- Connection Nodes -->
+                    <circle cx="100" cy="20" r="2" fill="rgba(95, 179, 184, 0.4)" class="neural-node"/>
+                    <circle cx="180" cy="100" r="2" fill="rgba(95, 179, 184, 0.4)" class="neural-node"/>
+                    <circle cx="100" cy="180" r="2" fill="rgba(95, 179, 184, 0.4)" class="neural-node"/>
+                    <circle cx="20" cy="100" r="2" fill="rgba(95, 179, 184, 0.4)" class="neural-node"/>
+                    <!-- Connection Lines -->
+                    <line x1="100" y1="100" x2="100" y2="20" stroke="rgba(95, 179, 184, 0.1)" stroke-width="0.5"/>
+                    <line x1="100" y1="100" x2="180" y2="100" stroke="rgba(95, 179, 184, 0.1)" stroke-width="0.5"/>
+                    <line x1="100" y1="100" x2="100" y2="180" stroke="rgba(95, 179, 184, 0.1)" stroke-width="0.5"/>
+                    <line x1="100" y1="100" x2="20" y2="100" stroke="rgba(95, 179, 184, 0.1)" stroke-width="0.5"/>
+                </svg>
+            </div>
+            
             <div class="hero-content">
                 <h1 class="hero-title">Macky's ML Society</h1>
-                <p class="hero-subtitle">Building Intelligence. Shaping the Future. One Algorithm at a Time.</p>
+                <p class="hero-subtitle">From Curiosity to Code. From Code to Intelligence.</p>
                 <div class="cta-buttons">
-                    <a href="#community" class="btn btn-primary"><span>Join Society</span></a>
+                    <a href="login.php" class="btn btn-primary"><span>Join Society</span></a>
                     <a href="#features" class="btn btn-secondary"><span>Explore ML</span></a>
                 </div>
                 </div>
@@ -2904,81 +3195,36 @@
                 </p>
                 <div class="team-grid">
                     <div class="team-card">
-                        <div class="team-avatar">MC</div>
-                        <div class="team-name">Macky Chen</div>
-                        <div class="team-role">Founder & Lead ML Engineer</div>
-                        <div class="team-experience">⭐ 12+ Years Experience</div>
-                        <div class="team-bio">Seasoned ML engineer with expertise in deep learning and computer vision. Founded the community to democratize ML education. Previously worked at leading tech companies.</div>
+                        <div class="team-avatar">PK</div>
+                        <div class="team-name">Pankaj Kumar</div>
+                        <div class="team-role">CEO</div>
+                        <div class="team-bio">Chief Executive Officer leading the strategic vision and direction of Macky's ML Society. Committed to building a thriving community of ML practitioners.</div>
                         <div class="team-skills">
-                            <span class="skill-tag">Deep Learning</span>
-                            <span class="skill-tag">Computer Vision</span>
-                            <span class="skill-tag">TensorFlow</span>
                             <span class="skill-tag">Leadership</span>
+                            <span class="skill-tag">Strategy</span>
+                            <span class="skill-tag">Management</span>
                         </div>
                     </div>
                     <div class="team-card">
-                        <div class="team-avatar">AK</div>
-                        <div class="team-name">Dr. Anna Kumar</div>
-                        <div class="team-role">Research Director & PhD</div>
-                        <div class="team-experience">📚 50+ Published Papers</div>
-                        <div class="team-bio">Leading ML researcher with a PhD from Stanford. Expert in NLP, Transformers, and Large Language Models. Published in NeurIPS, ICML, and ACL conferences.</div>
+                        <div class="team-avatar">HK</div>
+                        <div class="team-name">Harsh Kumar</div>
+                        <div class="team-role">Lead ML Enthusiast</div>
+                        <div class="team-bio">Leading ML initiatives and fostering collaboration within the community. Passionate about advancing machine learning knowledge and mentoring others.</div>
                         <div class="team-skills">
-                            <span class="skill-tag">NLP</span>
-                            <span class="skill-tag">Transformers</span>
-                            <span class="skill-tag">LLMs</span>
-                            <span class="skill-tag">Research</span>
-                        </div>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-avatar">RS</div>
-                        <div class="team-name">Robert Singh</div>
-                        <div class="team-role">Technical Lead & MLOps Expert</div>
-                        <div class="team-experience">🚀 8+ Years in Production ML</div>
-                        <div class="team-bio">Full-stack ML engineer specializing in model deployment, MLOps, and production systems. Helps members build scalable, production-ready ML applications using modern tools.</div>
-                        <div class="team-skills">
-                            <span class="skill-tag">MLOps</span>
-                            <span class="skill-tag">Deployment</span>
-                            <span class="skill-tag">PyTorch</span>
-                            <span class="skill-tag">Kubernetes</span>
-                        </div>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-avatar">LW</div>
-                        <div class="team-name">Lisa Wang</div>
-                        <div class="team-role">Community Manager & Data Scientist</div>
-                        <div class="team-experience">👥 5K+ Members Engaged</div>
-                        <div class="team-bio">Data scientist turned community builder. Organizes monthly hackathons, weekly study groups, and community events. Passionate about connecting ML enthusiasts worldwide.</div>
-                        <div class="team-skills">
-                            <span class="skill-tag">Community</span>
-                            <span class="skill-tag">Events</span>
-                            <span class="skill-tag">Data Science</span>
-                            <span class="skill-tag">Networking</span>
-                        </div>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-avatar">DJ</div>
-                        <div class="team-name">David Johnson</div>
-                        <div class="team-role">Content Creator & Educator</div>
-                        <div class="team-experience">📹 200+ Tutorials Created</div>
-                        <div class="team-bio">Creates comprehensive educational content including video tutorials, blog posts, and interactive learning resources. Makes complex ML concepts accessible to beginners.</div>
-                        <div class="team-skills">
-                            <span class="skill-tag">Education</span>
-                            <span class="skill-tag">Content</span>
-                            <span class="skill-tag">Tutorials</span>
-                            <span class="skill-tag">Python</span>
-                        </div>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-avatar">SP</div>
-                        <div class="team-name">Sarah Park</div>
-                        <div class="team-role">Mentor Coordinator & Career Coach</div>
-                        <div class="team-experience">🎯 300+ Members Mentored</div>
-                        <div class="team-bio">Connects beginners with experienced mentors and coordinates mentorship programs. Tracks member progress, organizes career workshops, and helps members achieve their ML career goals.</div>
-                        <div class="team-skills">
+                            <span class="skill-tag">Machine Learning</span>
+                            <span class="skill-tag">Leadership</span>
                             <span class="skill-tag">Mentorship</span>
-                            <span class="skill-tag">Programs</span>
-                            <span class="skill-tag">Career Guidance</span>
-                            <span class="skill-tag">Progress Tracking</span>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-avatar">TT</div>
+                        <div class="team-name">Tribhuvan Trivedi</div>
+                        <div class="team-role">Lead ML Enthusiast</div>
+                        <div class="team-bio">Passionate about machine learning and eager to explore the world of AI. Building foundational skills in ML algorithms and data science.</div>
+                        <div class="team-skills">
+                            <span class="skill-tag">Machine Learning</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Data Science</span>
                         </div>
                     </div>
                 </div>
@@ -3034,179 +3280,6 @@
                     <div class="feature-icon">🚀</div>
                     <h3>Career Growth</h3>
                     <p>Build your ML portfolio and develop industry-ready skills. Get mentorship and guidance from experienced practitioners.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ML Images Gallery Section -->
-        <section class="features" style="background: var(--bg-charcoal); padding-top: 60px;">
-            <h2 class="section-title">Machine Learning in Action</h2>
-            <div class="hero-image-showcase">
-                <div class="hero-image-item">
-                    <img src="https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?w=600&q=80" alt="AI Technology">
-                </div>
-                <div class="hero-image-item">
-                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80" alt="Neural Networks Visualization">
-                </div>
-                <div class="hero-image-item">
-                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80" alt="Data Analysis">
-                </div>
-                <div class="hero-image-item">
-                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80" alt="Machine Learning Code">
-                </div>
-                <div class="hero-image-item">
-                    <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?w=600&q=80" alt="Deep Learning">
-                </div>
-                <div class="hero-image-item">
-                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80" alt="AI Development">
-                </div>
-            </div>
-        </section>
-
-        <!-- Community Section - Google Style -->
-        <section class="community-section" id="community">
-            <div class="container">
-                <div class="community-hero">
-                    <h2>Join Our Growing Community</h2>
-                    <p>Connect with ML enthusiasts, share knowledge, and build the future of artificial intelligence together.</p>
-                </div>
-
-                <!-- Community Statistics -->
-                <div class="community-stats">
-                    <div class="stat-box">
-                        <div class="stat-number">5.2K+</div>
-                        <div class="stat-label">Active Members</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">1.8K+</div>
-                        <div class="stat-label">ML Projects</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">320+</div>
-                        <div class="stat-label">Events Hosted</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">89+</div>
-                        <div class="stat-label">Expert Mentors</div>
-                    </div>
-                </div>
-
-                <!-- Main Content Grid -->
-                <div class="community-content-grid">
-                    <!-- Discussion Forum -->
-                    <div class="discussion-forum">
-                        <h3>Latest Discussions</h3>
-                        
-                        <div class="discussion-card">
-                            <div class="discussion-header">
-                                <div class="member-avatar">AJ</div>
-                                <span class="discussion-author">Alex Johnson</span>
-                                <span class="discussion-time">2 hours ago</span>
-                            </div>
-                            <div class="discussion-title">How to optimize neural network training time?</div>
-                            <div class="discussion-meta">
-                                <span>💬 24 replies</span>
-                                <span>👍 156 likes</span>
-                                <span>🔖 12 bookmarks</span>
-                            </div>
-                        </div>
-
-                        <div class="discussion-card">
-                            <div class="discussion-header">
-                                <div class="member-avatar">SK</div>
-                                <span class="discussion-author">Sarah Kim</span>
-                                <span class="discussion-time">5 hours ago</span>
-                            </div>
-                            <div class="discussion-title">Best practices for deploying ML models in production</div>
-                            <div class="discussion-meta">
-                                <span>💬 42 replies</span>
-                                <span>👍 203 likes</span>
-                                <span>🔖 28 bookmarks</span>
-                            </div>
-                        </div>
-
-                        <div class="discussion-card">
-                            <div class="discussion-header">
-                                <div class="member-avatar">MR</div>
-                                <span class="discussion-author">Mike Rodriguez</span>
-                                <span class="discussion-time">1 day ago</span>
-                            </div>
-                            <div class="discussion-title">Understanding Transformer architecture - A beginner's guide</div>
-                            <div class="discussion-meta">
-                                <span>💬 18 replies</span>
-                                <span>👍 94 likes</span>
-                                <span>🔖 15 bookmarks</span>
-                            </div>
-                        </div>
-
-                        <div class="discussion-card">
-                            <div class="discussion-header">
-                                <div class="member-avatar">LP</div>
-                                <span class="discussion-author">Lisa Park</span>
-                                <span class="discussion-time">2 days ago</span>
-                            </div>
-                            <div class="discussion-title">Collaborative project: Building a recommendation system</div>
-                            <div class="discussion-meta">
-                                <span>💬 35 replies</span>
-                                <span>👍 178 likes</span>
-                                <span>🔖 45 bookmarks</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sidebar -->
-                    <div class="sidebar">
-                        <!-- Upcoming Events -->
-                        <div class="sidebar-widget">
-                            <h4>Upcoming Events</h4>
-                            <div class="event-item">
-                                <div class="event-date">Mar 15, 2026</div>
-                                <div class="event-title">ML Hackathon 2026</div>
-                                <div class="event-location">📍 Virtual Event</div>
-                            </div>
-                            <div class="event-item">
-                                <div class="event-date">Mar 22, 2026</div>
-                                <div class="event-title">Deep Learning Workshop</div>
-                                <div class="event-location">📍 Online</div>
-                            </div>
-                            <div class="event-item">
-                                <div class="event-date">Mar 29, 2026</div>
-                                <div class="event-title">AI Research Paper Discussion</div>
-                                <div class="event-location">📍 Community Forum</div>
-                            </div>
-                            <div class="event-item">
-                                <div class="event-date">Apr 5, 2026</div>
-                                <div class="event-title">ML Career Panel</div>
-                                <div class="event-location">📍 Zoom Meeting</div>
-                            </div>
-                        </div>
-
-                        <!-- Quick Links -->
-                        <div class="sidebar-widget">
-                            <h4>Quick Links</h4>
-                            <ul style="list-style: none; padding: 0;">
-                                <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(0, 246, 255, 0.1);">
-                                    <a href="#" style="color: var(--text-secondary); text-decoration: none; transition: all 0.3s; display: block;">📚 Learning Resources</a>
-                                </li>
-                                <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(0, 246, 255, 0.1);">
-                                    <a href="#" style="color: var(--text-secondary); text-decoration: none; transition: all 0.3s; display: block;">📊 Project Gallery</a>
-                                </li>
-                                <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(0, 246, 255, 0.1);">
-                                    <a href="#" style="color: var(--text-secondary); text-decoration: none; transition: all 0.3s; display: block;">👥 Find Mentors</a>
-                                </li>
-                                <li style="padding: 0.8rem 0;">
-                                    <a href="#" style="color: var(--text-secondary); text-decoration: none; transition: all 0.3s; display: block;">💼 Job Board</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Join Community CTA -->
-                <div class="join-community">
-                    <h3>Ready to Join?</h3>
-                    <p>Become part of a thriving community of ML enthusiasts, researchers, and practitioners. Share your projects, learn from experts, and grow together.</p>
-                    <a href="#" class="btn btn-primary" style="margin-right: 1rem;"><span>Join Now</span></a>
-                    <a href="#" class="btn btn-secondary"><span>Learn More</span></a>
                 </div>
             </div>
         </section>
@@ -3777,11 +3850,36 @@
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
-                navbar.style.boxShadow = '0 4px 20px rgba(0, 246, 255, 0.1)';
+                navbar.classList.add('scrolled');
             } else {
-                navbar.style.boxShadow = 'none';
+                navbar.classList.remove('scrolled');
             }
         });
+
+        // Hero Title Glitch Effect (Random, every 6-10 seconds)
+        function triggerHeroGlitch() {
+            const heroTitle = document.querySelector('.hero-title');
+            if (!heroTitle) return;
+            
+            heroTitle.classList.add('glitch');
+            setTimeout(() => {
+                heroTitle.classList.remove('glitch');
+            }, 300);
+        }
+
+        function scheduleNextGlitch() {
+            const delay = 6000 + Math.random() * 4000; // 6-10 seconds
+            setTimeout(() => {
+                triggerHeroGlitch();
+                scheduleNextGlitch();
+            }, delay);
+        }
+
+        // Start glitch effect after page load
+        window.addEventListener('load', () => {
+            setTimeout(scheduleNextGlitch, 3000); // First glitch after 3 seconds
+        });
+
 
         // FAQ Accordion Functionality - Fixed & Improved
         function initFAQ() {
@@ -4007,12 +4105,40 @@
         });
 
 
-        // Initialize on load
-        window.addEventListener('load', () => {
+        // Boot Sequence - Initialize on DOMContentLoaded
+        function bootSequence() {
+            console.log('[BOOT] Initializing ML Portal...');
+            
+            // Initialize components
             createParticles();
             createNeuralNetwork();
             initCustomCursor();
             initFAQ();
+            
+            console.log('[BOOT] System ready.');
+        }
+
+        // Initialize on DOMContentLoaded (faster than window.load)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', bootSequence);
+        } else {
+            // DOM already loaded
+            bootSequence();
+        }
+
+        // Fallback for window.load (for assets that need to be loaded)
+        window.addEventListener('load', () => {
+            // Ensure cursor is properly anchored
+            const cursor = document.querySelector('.custom-cursor');
+            const cursorRing = document.querySelector('.cursor-ring');
+            if (cursor && cursorRing) {
+                cursor.style.display = 'block';
+                cursor.style.visibility = 'visible';
+                cursor.style.opacity = '1';
+                cursorRing.style.display = 'block';
+                cursorRing.style.visibility = 'visible';
+                cursorRing.style.opacity = '1';
+            }
         });
 
         // Continuous animation updates
@@ -4024,7 +4150,7 @@
             });
         }, 3000);
 
-        // Enhanced Custom Cursor Animation - Smooth & Precise
+        // Custom Cursor Animation - Clean Implementation
         function initCustomCursor() {
             // Create cursor elements
             const cursor = document.createElement('div');
@@ -4067,77 +4193,78 @@
                 document.body.style.cursor = 'none';
             }
 
-            // Smooth cursor tracking variables
+            // Mouse position tracking
             let mouseX = window.innerWidth / 2;
             let mouseY = window.innerHeight / 2;
-            let cursorX = mouseX;
-            let cursorY = mouseY;
+            
+            // Ring position for smooth trailing (starts at mouse position)
             let ringX = mouseX;
             let ringY = mouseY;
             
-            // Initialize cursor position using transform3d for better performance
-            cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
-            cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+            // Initialize cursor positions - transform3d only, no left/top
+            cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+            cursorRing.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
             
-            // Performance optimization
+            // Performance tracking variables
             let lastTrailTime = 0;
             let connectionCounter = 0;
-            let glitchCounter = 0;
             let animationFrameId = null;
             let isHovering = false;
 
-            // Smooth animation loop using requestAnimationFrame
-            function animateCursor() {
-                // Enhanced smooth cursor interpolation (higher value = faster response, more precise)
-                const cursorSpeed = isHovering ? 0.45 : 0.25;
-                const ringSpeed = isHovering ? 0.15 : 0.08;
+            // Animation loop - smooth ring trailing using lerp (requestAnimationFrame)
+            function animateRing() {
+                // Subtle linear interpolation for smooth trailing (0.08-0.15 range)
+                const lerpFactor = 0.12; // Subtle trailing factor
+                
+                // Ring smooth following using lerp
+                ringX += (mouseX - ringX) * lerpFactor;
+                ringY += (mouseY - ringY) * lerpFactor;
 
-                // Smooth interpolation with sub-pixel precision
-                cursorX += (mouseX - cursorX) * cursorSpeed;
-                cursorY += (mouseY - cursorY) * cursorSpeed;
-                ringX += (mouseX - ringX) * ringSpeed;
-                ringY += (mouseY - ringY) * ringSpeed;
-
-                // Update positions using transform3d for better performance and precision
-                cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+                // Update ring position using transform3d only (GPU accelerated)
                 cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
 
-                animationFrameId = requestAnimationFrame(animateCursor);
+                animationFrameId = requestAnimationFrame(animateRing);
             }
 
-            // Start animation loop
-            animateCursor();
+            // Start animation loop for ring
+            animationFrameId = requestAnimationFrame(animateRing);
 
-            // Mouse move handler - Desktop
+            // Mouse move handler - inner dot updates instantly (1:1)
             function handleMouseMove(e) {
+                // Update mouse position
                 mouseX = e.clientX;
                 mouseY = e.clientY;
+                
+                // Inner cursor: Update instantly in mousemove (1:1 mapping, no delay)
+                cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+                
+                // Ring position is updated in requestAnimationFrame loop (smooth trailing)
 
                 // Create trail particles (throttled for performance)
                 const now = Date.now();
-                if (now - lastTrailTime > 15) {
+                if (now - lastTrailTime > 20) {
                     createCursorTrail(mouseX, mouseY);
                     lastTrailTime = now;
                 }
 
-                // Create neural network connections periodically
-                if (connectionCounter % 25 === 0) {
+                // Create neural network connections periodically (reduced frequency)
+                if (connectionCounter % 30 === 0) {
                     createCursorConnection(mouseX, mouseY);
                 }
                 connectionCounter++;
 
-                // Random particles with machine-like precision
-                if (Math.random() > 0.8) {
+                // Random particles with machine-like precision (reduced frequency)
+                if (Math.random() > 0.85) {
                     createCursorParticles(mouseX, mouseY);
                 }
 
-                // Random glitch effect
-                if (Math.random() > 0.98) {
+                // Random glitch effect (reduced frequency)
+                if (Math.random() > 0.99) {
                     triggerGlitch();
                 }
 
-                // Data stream effect
-                if (Math.random() > 0.95) {
+                // Data stream effect (reduced frequency)
+                if (Math.random() > 0.97) {
                     createDataStream(mouseX, mouseY);
                 }
             }
@@ -4170,27 +4297,34 @@
                 }
             }
 
-            // Event listeners
-            document.addEventListener('mousemove', handleMouseMove);
+            // Event listeners (optimized with passive where possible)
+            document.addEventListener('mousemove', handleMouseMove, { passive: true });
             document.addEventListener('touchmove', handleTouchMove, { passive: false });
-            document.addEventListener('touchstart', handleTouchStart);
+            document.addEventListener('touchstart', handleTouchStart, { passive: true });
 
-            // Handle hover states - Smooth transitions
+            // Handle hover states - Smooth transitions (optimized)
             const interactiveElements = document.querySelectorAll('a, button, .btn, .feature-card, .nav-menu a');
             interactiveElements.forEach(element => {
                 element.addEventListener('mouseenter', () => {
                     isHovering = true;
-                    cursor.classList.add('hover');
-                    cursorRing.classList.add('hover');
-                    createParticleBurst(mouseX, mouseY);
-                    triggerGlitch();
-                });
+                    // Use requestAnimationFrame for smooth hover transitions
+                    requestAnimationFrame(() => {
+                        cursor.classList.add('hover');
+                        cursorRing.classList.add('hover');
+                    });
+                    // Reduce particle effects for better performance
+                    if (Math.random() > 0.7) {
+                        createParticleBurst(mouseX, mouseY);
+                    }
+                }, { passive: true });
 
                 element.addEventListener('mouseleave', () => {
                     isHovering = false;
-                    cursor.classList.remove('hover');
-                    cursorRing.classList.remove('hover');
-                });
+                    requestAnimationFrame(() => {
+                        cursor.classList.remove('hover');
+                        cursorRing.classList.remove('hover');
+                    });
+                }, { passive: true });
             });
 
             // Initialize binary rain - Create columns of falling binary numbers
